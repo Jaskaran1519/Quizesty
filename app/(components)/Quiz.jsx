@@ -112,9 +112,9 @@ const Quiz = () => {
   const currentQuestion = questions[currentQuestionIndex];
 
   return (
-    <div>
+    <div className="w-full mt-10 min-h-screen">
       {currentQuestion ? (
-        <div>
+        <div className="">
           <h1>Question {currentQuestionIndex + 1}</h1>
           <p>{currentQuestion.question}</p>
           {currentQuestion.options.map((option, index) => (
