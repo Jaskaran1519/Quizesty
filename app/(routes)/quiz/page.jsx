@@ -1,10 +1,9 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
-import Link from "next/link";
 
-const Quiz = () => {
+const QuizContent = () => {
   const router = useRouter();
   const [summary, setSummary] = useState("");
   const [questions, setQuestions] = useState([]);
@@ -28,10 +27,7 @@ const Quiz = () => {
         setError(
           "There was an error processing the summary. Please try again."
         );
-        setLoading(false);
       }
-    } else {
-      setLoading(false);
     }
   }, [searchParams]);
 
@@ -95,10 +91,6 @@ const Quiz = () => {
     return <div>Loading...</div>;
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   if (score !== null) {
     return (
       <div>
@@ -106,7 +98,7 @@ const Quiz = () => {
         <p>
           Your score: {score} / {questions.length}
         </p>
-        <Link href="/" />
+        <button onClick={() => router.push("/")}>Back to Summary Page</button>
       </div>
     );
   }
@@ -142,6 +134,14 @@ const Quiz = () => {
         <div>Loading...</div>
       )}
     </div>
+  );
+};
+
+const Quiz = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <QuizContent />
+    </Suspense>
   );
 };
 
