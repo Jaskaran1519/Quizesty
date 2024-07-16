@@ -88,17 +88,22 @@ const QuizContent = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center mt-10 text-lg">Loading...</div>;
   }
 
   if (score !== null) {
     return (
-      <div>
-        <h1>Quiz Completed</h1>
-        <p>
+      <div className="text-center mt-10">
+        <h1 className="text-2xl font-bold">Quiz Completed</h1>
+        <p className="text-lg">
           Your score: {score} / {questions.length}
         </p>
-        <button onClick={() => router.push("/")}>Back to Summary Page</button>
+        <button
+          className="mt-5 px-4 py-2 bg-blue-500 text-white rounded-md"
+          onClick={() => router.push("/")}
+        >
+          Back to Summary Page
+        </button>
       </div>
     );
   }
@@ -106,32 +111,51 @@ const QuizContent = () => {
   const currentQuestion = questions[currentQuestionIndex];
 
   return (
-    <div>
+    <div className="flex justify-center items-center h-screen bg-gray-100">
       {currentQuestion ? (
-        <div>
-          <h1>Question {currentQuestionIndex + 1}</h1>
-          <p>{currentQuestion.question}</p>
-          {currentQuestion.options.map((option, index) => (
-            <div key={index}>
-              <input
-                type="radio"
-                id={`option-${index}`}
-                name="option"
-                value={option}
-                onChange={() => handleAnswer(option)}
-                checked={answers[currentQuestionIndex] === option}
-              />
-              <label htmlFor={`option-${index}`}>{option}</label>
-            </div>
-          ))}
-          {currentQuestionIndex < questions.length - 1 ? (
-            <button onClick={handleNext}>Next</button>
-          ) : (
-            <button onClick={handleSubmit}>Submit</button>
-          )}
+        <div className="bg-white p-6 rounded-md shadow-md w-4/5 max-w-2xl">
+          <h1 className="text-xl font-semibold mb-4">
+            Question {currentQuestionIndex + 1}
+          </h1>
+          <p className="mb-6">{currentQuestion.question}</p>
+          <div className="space-y-4">
+            {currentQuestion.options.map((option, index) => (
+              <div key={index} className="flex items-center">
+                <input
+                  type="radio"
+                  id={`option-${index}`}
+                  name="option"
+                  value={option}
+                  onChange={() => handleAnswer(option)}
+                  checked={answers[currentQuestionIndex] === option}
+                  className="mr-2"
+                />
+                <label htmlFor={`option-${index}`} className="text-lg">
+                  {option}
+                </label>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 flex justify-end space-x-4">
+            {currentQuestionIndex < questions.length - 1 ? (
+              <button
+                className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                onClick={handleNext}
+              >
+                Next
+              </button>
+            ) : (
+              <button
+                className="px-4 py-2 bg-green-500 text-white rounded-md"
+                onClick={handleSubmit}
+              >
+                Submit
+              </button>
+            )}
+          </div>
         </div>
       ) : (
-        <div>Loading...</div>
+        <div className="text-center mt-10 text-lg">Loading...</div>
       )}
     </div>
   );
@@ -139,7 +163,9 @@ const QuizContent = () => {
 
 const Quiz = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense
+      fallback={<div className="text-center mt-10 text-lg">Loading...</div>}
+    >
       <QuizContent />
     </Suspense>
   );

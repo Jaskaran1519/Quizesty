@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { SignedOut, UserButton, SignedIn } from "@clerk/nextjs";
 
 const Header = () => {
   return (
@@ -9,15 +10,15 @@ const Header = () => {
         <h1 className="px-4 py-4 text-xl font-semibold">Quizesty</h1>
       </Link>
 
-      <Link href="/fuck">
-        <Image
-          src="/water.png"
-          className="p-4"
-          width={75}
-          height={75}
-          alt="/"
-        />
-      </Link>
+      <div className="flex gap-5 items-center">
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
+        <SignedOut>
+          <Link href="/sign-up">Sign up</Link>
+          <Link href="/sign-in">Login</Link>
+        </SignedOut>
+      </div>
     </div>
   );
 };
