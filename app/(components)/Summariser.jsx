@@ -7,8 +7,8 @@ const Summariser = () => {
   const [summary, setSummary] = useState("");
   const [loading, setLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [startPage, setStartPage] = useState(1);
-  const [numPages, setNumPages] = useState(5);
+  const [startPage, setStartPage] = useState();
+  const [numPages, setNumPages] = useState();
   const [totalPages, setTotalPages] = useState(null);
   const [error, setError] = useState("");
   const router = useRouter();
@@ -104,6 +104,10 @@ const Summariser = () => {
       setError(`Cannot summarize beyond page ${totalPages}.`);
       return;
     }
+    if (numPages > 3) {
+      setError("You can only select 3 pages at once");
+      return;
+    }
 
     setError("");
     onLoadFile();
@@ -117,7 +121,11 @@ const Summariser = () => {
   };
 
   if (!pdfjsLibLoaded) {
-    return <div>Loading...</div>;
+    return (
+      <div className="w-full h-[90vh] flex justify-center items-center">
+        Loading...
+      </div>
+    );
   }
 
   const formatSummary = (text) => {
@@ -146,22 +154,23 @@ const Summariser = () => {
       </div>
       {totalPages && (
         <div className="mt-5 flex flex-col items-center">
-          <div className="flex flex-row gap-3">
+          <div className="flex flex-wrap gap-3 ">
             <input
               type="number"
               placeholder="Start Page"
               value={startPage}
               onChange={(e) => setStartPage(Number(e.target.value))}
-              className="border p-2 rounded"
+              className="border p-2 rounded sm:w-auto w-[50vw] mx-auto"
             />
             <input
               type="number"
               placeholder="Number of Pages"
               value={numPages}
               onChange={(e) => setNumPages(Number(e.target.value))}
-              className="border p-2 rounded"
+              className="border p-2 rounded w-[50vw] sm:w-auto flex mx-auto"
             />
           </div>
+
           <button
             className="px-4 py-2 bg-green-500 text-white rounded-md disabled:opacity-50 mt-5"
             onClick={handleSummarize}

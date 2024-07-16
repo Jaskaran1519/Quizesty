@@ -15,8 +15,17 @@ const Header = () => {
           <UserButton />
         </SignedIn>
         <SignedOut>
-          <Link href="/sign-up">Sign up</Link>
-          <Link href="/sign-in">Login</Link>
+          <Link href="/sign-up">
+            <button className="px-3 py-2 rounded-md border bg-gray-600 text-white">
+              Sign up
+            </button>
+          </Link>
+          <Link href="/sign-in">
+            {" "}
+            <button className="px-3 py-2 rounded-md bg-gray-800 text-white">
+              Login
+            </button>
+          </Link>
         </SignedOut>
       </div>
     </div>
