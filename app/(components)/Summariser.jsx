@@ -1,6 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Indie_Flower } from "next/font/google";
+
+const inputFont = Indie_Flower({
+  subsets: ["latin"],
+  weight: ["400"],
+});
 
 const Summariser = () => {
   const [pdfjsLibLoaded, setPdfjsLibLoaded] = useState(false);
@@ -138,55 +144,70 @@ const Summariser = () => {
 
   return (
     <div className="w-full flex justify-center items-center flex-col mt-[10vh]">
-      <h1 className="mb-10 text-3xl font-semibold">Upload your PDF here</h1>
-      <div className="min-w-[250px] w-[40%] h-[30vh] max-h-[200px] border-[1px] border-black relative rounded-xl">
+      {/* <h1 className="mb-10 text-3xl font-semibold">Upload your PDF here</h1> */}
+      <div className="min-w-[250px] w-[40%] h-[30vh] max-h-[200px] border-[2px] border-black inputBackground relative rounded-xl">
         <input
           type="file"
           id="file"
           name="file"
           accept=".pdf"
           onChange={onFileChange}
-          className="w-full h-full inset-0 absolute opacity-0"
+          className="w-full h-full inset-0 absolute opacity-0 cursor-pointer"
         />
-        <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 text-center">
-          {selectedFile ? selectedFile.name : "Drag your file here"}
+        <h1 className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center font-semibold text-xl pointer-events-none">
+          {selectedFile ? (
+            selectedFile.name
+          ) : (
+            <div className={`${inputFont.className} text-3xl`}>
+              Drag your file here
+            </div>
+          )}
         </h1>
       </div>
+
       {totalPages && (
         <div className="mt-5 flex flex-col items-center">
-          <div className="flex flex-wrap gap-3 ">
-            <input
-              type="number"
-              placeholder="Start Page"
-              value={startPage}
-              onChange={(e) => setStartPage(Number(e.target.value))}
-              className="border p-2 rounded sm:w-auto w-[50vw] mx-auto"
-            />
-            <input
-              type="number"
-              placeholder="Number of Pages"
+          <div className="flex flex-wrap gap-3 w-full">
+            <div className="flex gap-5 items-center">
+              <h1 className="text-white text-xl">Start page: </h1>
+              <input
+                type="number"
+                placeholder="Start Page"
+                value={startPage}
+                onChange={(e) => setStartPage(Number(e.target.value))}
+                className="border p-2 rounded w-full sm:w-auto"
+              />
+            </div>
+            <select
               value={numPages}
               onChange={(e) => setNumPages(Number(e.target.value))}
-              className="border p-2 rounded w-[50vw] sm:w-auto flex mx-auto"
-            />
+              className="border p-2 rounded w-full sm:w-auto"
+            >
+              {[...Array(10)].map((_, index) => (
+                <option key={index + 1} value={index + 1} disabled={index > 2}>
+                  {index + 1}
+                </option>
+              ))}
+            </select>
           </div>
-
-          <button
-            className="px-4 py-2 bg-green-500 text-white rounded-md disabled:opacity-50 mt-5"
-            onClick={handleSummarize}
-            disabled={!selectedFile || loading}
-          >
-            Summarize
-          </button>
         </div>
       )}
-      <button
-        className="px-4 py-2 bg-blue-500 text-white rounded-md disabled:opacity-50 mt-5"
-        onClick={handleGenerateQuiz}
-        disabled={!summary}
-      >
-        Generate Quiz
-      </button>
+      <div className="flex gap-8">
+        <button
+          className="px-4 py-2 bg-white text-black rounded-md disabled:opacity-50 mt-5"
+          onClick={handleSummarize}
+          disabled={!selectedFile || loading}
+        >
+          Summarize
+        </button>
+        <button
+          className="px-4 py-2 bg-white text-black rounded-md disabled:opacity-50 mt-5"
+          onClick={handleGenerateQuiz}
+          disabled={!summary}
+        >
+          Generate Quiz
+        </button>
+      </div>
       {error && <div className="mt-5 text-red-500">{error}</div>}
 
       {loading && selectedFile ? (

@@ -13,7 +13,9 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={`${inter.className} bg-[#F3F3F3] `}>
+        <body
+          className={`${inter.className} background w-[90%] max-w-[1400px] mx-auto min-h-screen `}
+        >
           {children}
           <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.mjs"></script>
         </body>
