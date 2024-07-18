@@ -101,7 +101,13 @@ const QuizContent = () => {
   };
 
   if (loading) {
-    return <div className="text-center mt-10 text-lg">Loading...</div>;
+    return (
+      <div className="text-center w-full h-screen flex justify-center items-center mt-10 text-lg">
+        <svg viewBox="25 25 50 50" className="svg1">
+          <circle r="25" cy="25" cx="50"></circle>
+        </svg>
+      </div>
+    );
   }
 
   if (error) {
@@ -112,13 +118,13 @@ const QuizContent = () => {
 
   if (score !== null) {
     return (
-      <div className="text-center mt-10">
-        <h1 className="text-2xl font-bold">Quiz Completed</h1>
-        <p className="text-lg">
+      <div className="text-center w-full min-h-[50vh] mt-[20vh]">
+        <h1 className="text-[3rem] font-bold text-white ">Quiz Completed</h1>
+        <p className="text-2xl mt-10 text-gray-100 ">
           Your score: {score} / {questions.length}
         </p>
         <button
-          className="mt-5 px-4 py-2 bg-blue-500 text-white rounded-md"
+          className="mt-16 px-4 py-2 bg-blue-500 text-white rounded-md"
           onClick={() => router.push("/")}
         >
           Back to Summary Page
@@ -130,9 +136,9 @@ const QuizContent = () => {
   const currentQuestion = questions[currentQuestionIndex];
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
+    <div className="flex justify-center items-center h-screen background">
       {currentQuestion ? (
-        <div className="bg-white p-6 rounded-md shadow-md w-4/5 max-w-2xl">
+        <div className="bg-gray-100 p-6 rounded-md shadow-md w-4/5 max-w-2xl">
           <h1 className="text-xl font-semibold mb-4">
             Question {currentQuestionIndex + 1}
           </h1>

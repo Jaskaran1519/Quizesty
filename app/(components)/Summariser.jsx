@@ -168,22 +168,22 @@ const Summariser = () => {
       {totalPages && (
         <div className="mt-5 flex flex-col items-center">
           <div className="flex flex-wrap gap-3 w-full">
-            <div className="flex gap-5 items-center">
+            <div className="flex justify-between gap-5 items-center w-full">
               <h1 className="text-white text-xl">Start page: </h1>
               <input
                 type="number"
                 placeholder="Start Page"
                 value={startPage}
                 onChange={(e) => setStartPage(Number(e.target.value))}
-                className="border p-2 rounded w-full sm:w-auto"
+                className="border p-2 rounded w-[50%] "
               />
             </div>
-            <div className="flex flex-wrap gap-3 w-full">
+            <div className="flex flex-wrap justify-between items-center gap-3 w-full">
               <h1 className="text-white text-xl">No. of pages: </h1>
               <select
                 value={numPages}
                 onChange={(e) => setNumPages(Number(e.target.value))}
-                className="border p-2 rounded w-full sm:w-auto"
+                className="border p-2 rounded w-[50%] "
               >
                 {[...Array(10)].map((_, index) => (
                   <option
