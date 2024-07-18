@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import Footer from "./(components)/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,11 +14,10 @@ export default function RootLayout({ children }) {
   return (
     <ClerkProvider>
       <html lang="en">
-        <body
-          className={`${inter.className} background w-[90%] max-w-[1400px] mx-auto min-h-screen `}
-        >
+        <body className={`${inter.className} background  `}>
           {children}
           <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.mjs"></script>
+          <Footer />
         </body>
       </html>
     </ClerkProvider>

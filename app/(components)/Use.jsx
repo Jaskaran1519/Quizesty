@@ -1,22 +1,31 @@
 import Image from "next/image";
+import { Cantarell, Encode_Sans, Josefin_Sans, Zeyada } from "next/font/google";
 
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/wuJOPaMNbUv
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
+const headingfont = Josefin_Sans({
+  subsets: ["latin"],
+  weight: ["600"],
+});
+const smallfont = Zeyada({
+  subsets: ["latin"],
+  weight: ["400"],
+});
+const bulletfont = Cantarell({
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
 export default function Component() {
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center h-auto p-4">
+    <div className="flex flex-col md:flex-row items-center justify-center h-auto p-4 mt-[20vh] mb-20">
       <div className="relative w-full md:w-1/2 flex justify-center">
         <Image
-          src="/middle finger.png"
+          src="/pdfuseimage.jpeg"
           width={500}
           height={500}
           alt="Enhanced Image"
-          className=""
+          className="rounded-xl"
         />
-        <div className="absolute bottom-4 right-4 bg-white p-2 rounded-lg shadow-lg">
+        <div className="absolute bottom-4 right-4 bg-white p-2 rounded-lg  shadow-lg">
           <div className="flex items-center space-x-2">
             <FilterIcon className="w-4 h-4" />
             <span>Reducing blur</span>
@@ -30,10 +39,17 @@ export default function Component() {
         </div>
       </div>
       <div className="w-full md:w-1/2 mt-8 md:mt-0 md:ml-8">
-        <h1 className="text-2xl font-bold mb-4">
-          How to enhance image quality
+        <h2
+          className={` ${smallfont.className}  mb-2 text-3xl text-purple-500`}
+        >
+          How to use{" "}
+        </h2>
+        <h1
+          className={` ${headingfont.className} text-3xl font-bold mb-4 text-white`}
+        >
+          How to summarize your text content
         </h1>
-        <div className="space-y-4">
+        <div className={` ${bulletfont.className} space-y-4 text-gray-800`}>
           <div className="p-4 bg-white rounded-lg shadow-lg group overflow-hidden">
             <h2 className="text-xl font-bold">1. Upload your pdf</h2>
             <div className="max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-300 text-sm text-gray-500 mt-2">

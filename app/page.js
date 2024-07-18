@@ -6,7 +6,7 @@ import Use from "./(components)/Use";
 
 const page = () => {
   return (
-    <div className=" ">
+    <div className=" w-[90%] max-w-[1400px] mx-auto min-h-screen">
       <Header />
       <Intro />
       <Summariser />

@@ -20,7 +20,7 @@ const Header = () => {
         </h1>
       </Link>
 
-      <div className="flex gap-5 items-center">
+      <div className="flex gap-5 items-center z-20">
         <SignedIn>
           <UserButton />
         </SignedIn>

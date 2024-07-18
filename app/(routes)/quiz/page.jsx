@@ -40,6 +40,7 @@ const QuizContent = () => {
 
   async function generateQuiz(text) {
     try {
+      setLoading(true);
       const response = await fetch("/api/generate-quiz", {
         method: "POST",
         headers: {
@@ -49,19 +50,31 @@ const QuizContent = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json();
+        throw new Error(
+          `HTTP error! status: ${response.status}, message: ${
+            errorData.error || "Unknown error"
+          }`
+        );
       }
 
       const data = await response.json();
-      console.log("Quiz data:", data);
+      console.log("Raw API response:", data); // Log the entire response
+
+      if (!data.success) {
+        throw new Error(`API error: ${data.error || "Unknown error"}`);
+      }
+
       if (!Array.isArray(data.questions)) {
+        console.error("Unexpected API response structure:", data);
         throw new Error("API did not return an array of questions");
       }
+
       setQuestions(data.questions);
-      setLoading(false);
     } catch (error) {
       console.error("Error generating quiz:", error);
-      setError("Failed to generate quiz. Please try again.");
+      setError(`Failed to generate quiz: ${error.message}`);
+    } finally {
       setLoading(false);
     }
   }
@@ -89,6 +102,12 @@ const QuizContent = () => {
 
   if (loading) {
     return <div className="text-center mt-10 text-lg">Loading...</div>;
+  }
+
+  if (error) {
+    return (
+      <div className="text-center mt-10 text-lg text-red-600">{error}</div>
+    );
   }
 
   if (score !== null) {

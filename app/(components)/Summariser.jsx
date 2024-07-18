@@ -178,17 +178,24 @@ const Summariser = () => {
                 className="border p-2 rounded w-full sm:w-auto"
               />
             </div>
-            <select
-              value={numPages}
-              onChange={(e) => setNumPages(Number(e.target.value))}
-              className="border p-2 rounded w-full sm:w-auto"
-            >
-              {[...Array(10)].map((_, index) => (
-                <option key={index + 1} value={index + 1} disabled={index > 2}>
-                  {index + 1}
-                </option>
-              ))}
-            </select>
+            <div className="flex flex-wrap gap-3 w-full">
+              <h1 className="text-white text-xl">No. of pages: </h1>
+              <select
+                value={numPages}
+                onChange={(e) => setNumPages(Number(e.target.value))}
+                className="border p-2 rounded w-full sm:w-auto"
+              >
+                {[...Array(10)].map((_, index) => (
+                  <option
+                    key={index + 1}
+                    value={index + 1}
+                    disabled={index > 2}
+                  >
+                    {index + 1}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
       )}
@@ -211,11 +218,19 @@ const Summariser = () => {
       {error && <div className="mt-5 text-red-500">{error}</div>}
 
       {loading && selectedFile ? (
-        <div className="mt-5 text-center">Summarizing your content...</div>
+        <div className="mt-5 text-center text-white text-3xl flex justify-center items-center">
+          Summarizing your content{" "}
+          <span>
+            <svg viewBox="25 25 50 50" className="svg1">
+              <circle r="10" cy="50" cx="50"></circle>
+            </svg>
+          </span>
+        </div>
       ) : (
         summary && (
-          <div className="mt-5 border-[2px] border-opacity-45 border-black p-3 rounded-md w-full h-auto mb-10">
+          <div className="mt-5 border-[2px] border-opacity-45 border-black bg-gray-200 p-5 z-10 rounded-md w-full h-auto mb-10">
             <h1 className="font-semibold text-2xl py-3">Summarized text</h1>
+
             {formatSummary(summary)}
           </div>
         )
