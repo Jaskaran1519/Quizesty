@@ -2,6 +2,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
+import Loader from "@/app/(components)/Loader";
 
 const QuizContent = () => {
   const router = useRouter();
@@ -102,10 +103,8 @@ const QuizContent = () => {
 
   if (loading) {
     return (
-      <div className="text-center w-full h-screen flex justify-center items-center mt-10 text-lg">
-        <svg viewBox="25 25 50 50" className="svg1">
-          <circle r="25" cy="25" cx="50"></circle>
-        </svg>
+      <div className="text-center w-full h-screen flex justify-center items-center  text-lg">
+        <Loader />
       </div>
     );
   }
