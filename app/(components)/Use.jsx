@@ -28,12 +28,12 @@ export default function Component() {
         <div className="absolute bottom-4 right-4 bg-white p-2 rounded-lg  shadow-lg">
           <div className="flex items-center space-x-2">
             <FilterIcon className="w-4 h-4" />
-            <span>Reducing blur</span>
+            <span>More informative</span>
             <CheckIcon className="w-4 h-4" />
           </div>
           <div className="flex items-center space-x-2 mt-2">
             <ZoomInIcon className="w-4 h-4" />
-            <span>Improving resolution</span>
+            <span>Improved precision</span>
             <CheckIcon className="w-4 h-4" />
           </div>
         </div>
