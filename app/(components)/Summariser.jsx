@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Indie_Flower } from "next/font/google";
+import Intro from "./Intro";
+import Loader from "./Loader";
 
 const inputFont = Indie_Flower({
   subsets: ["latin"],
@@ -128,8 +130,8 @@ const Summariser = () => {
 
   if (!pdfjsLibLoaded) {
     return (
-      <div className="w-full h-[90vh] flex justify-center items-center">
-        Loading...
+      <div className="w-full h-[50vh] flex justify-center items-center">
+        <Loader />
       </div>
     );
   }
@@ -143,8 +145,9 @@ const Summariser = () => {
   };
 
   return (
-    <div className="w-full flex justify-center items-center flex-col mt-[10vh]">
+    <div className="w-full flex justify-center items-center flex-col mt-[10vh] z-20">
       {/* <h1 className="mb-10 text-3xl font-semibold">Upload your PDF here</h1> */}
+
       <div className="min-w-[250px] w-[40%] h-[30vh] max-h-[200px] border-[2px] border-black inputBackground relative rounded-xl">
         <input
           type="file"
@@ -166,7 +169,7 @@ const Summariser = () => {
       </div>
 
       {totalPages && (
-        <div className="mt-5 flex flex-col items-center">
+        <div className="mt-5 flex flex-col items-center z-20">
           <div className="flex flex-wrap gap-3 w-full">
             <div className="flex justify-between gap-5 items-center w-full">
               <h1 className="text-white text-xl">Start page: </h1>
@@ -199,7 +202,7 @@ const Summariser = () => {
           </div>
         </div>
       )}
-      <div className="flex gap-8">
+      <div className="flex gap-8 z-20">
         <button
           className="px-4 py-2 bg-white text-black rounded-md disabled:opacity-50 mt-5"
           onClick={handleSummarize}
